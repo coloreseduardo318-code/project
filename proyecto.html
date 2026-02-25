@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sonliquid — Water Filters for Sonora</title>
+  <meta name="description" content="Sonliquid: student-built natural water filters and solar copper pasteurizers for Sonora's drought zones.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --terracotta:#c75b39;--terra-dark:#9a3e22;--terra-light:#e8a88a;--terra-pale:#fdf0ea;
+      --sand:#f5e6d0;--sand-dark:#d4b896;--desert:#2d2418;--desert-mid:#5a4a3a;
+      --sage:#6b8f71;--sage-light:#e2ede3;--sage-dark:#4a6e50;
+      --cream:#faf8f4;--white:#fff;--text:#2d2418;--text2:#6a5d4f;
+      --copper:#b87333;--copper-light:#daa06d;
+      --r:12px;--r-lg:20px;--r-xl:999px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--cream);line-height:1.6;overflow-x:hidden}
+    .container{max-width:1140px;margin:0 auto;padding:0 24px}
+    section{padding:110px 0}
+    h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.15}
+    .tag{display:inline-block;padding:6px 16px;border-radius:var(--r-xl);font-size:.75rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+
+    /* ===== NAV ===== */
+    header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;transition:.4s}
+    header.scrolled{background:rgba(250,248,244,.92);backdrop-filter:blur(16px);box-shadow:0 1px 20px rgba(45,36,24,.06);padding:10px 0}
+    header .container{display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white);transition:color .4s}
+    header.scrolled .logo{color:var(--desert)}
+    .logo-mark{width:36px;height:36px;background:var(--terracotta);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--white);font-weight:700;font-family:'Playfair Display',serif}
+    .logo-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700}
+    nav{display:flex;align-items:center;gap:28px}
+    nav a{text-decoration:none;color:rgba(255,255,255,.8);font-size:.88rem;font-weight:500;transition:color .3s}
+    header.scrolled nav a{color:var(--text2)}
+    header.scrolled nav a:hover{color:var(--terracotta)}
+    .nav-btn{padding:10px 22px!important;background:var(--terracotta);color:var(--white)!important;border-radius:var(--r-xl);font-weight:600!important;transition:background .3s}
+    .nav-btn:hover{background:var(--terra-dark)}
+
+    /* ===== HERO ===== */
+    .hero{min-height:100vh;display:flex;align-items:center;position:relative;background:var(--desert);overflow:hidden;padding-top:80px}
+    .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(45,36,24,.3) 0%,rgba(45,36,24,.8) 100%);z-index:1}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#3d2e1e 0%,#5a4a3a 30%,#7a6040 60%,#3d2e1e 100%);opacity:.6}
+    /* Animated sand particles */
+    .sand-particle{position:absolute;width:4px;height:4px;background:rgba(213,184,150,.3);border-radius:50%;animation:drift linear infinite;z-index:0}
+    @keyframes drift{0%{transform:translateX(0) translateY(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(200px) translateY(-400px);opacity:0}}
+    .hero .container{position:relative;z-index:2;text-align:center;max-width:800px}
+    .hero-tag{background:rgba(199,91,57,.3);border:1px solid rgba(199,91,57,.5);color:var(--terra-light);margin-bottom:28px}
+    .hero h1{font-size:clamp(2.8rem,6vw,4.5rem);color:var(--white);margin-bottom:24px}
+    .hero h1 em{font-style:italic;color:var(--terra-light)}
+    .hero p{font-size:1.2rem;color:rgba(255,255,255,.75);max-width:600px;margin:0 auto 40px;line-height:1.8}
+    .hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+    .btn-terra{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:var(--terracotta);color:var(--white);text-decoration:none;border-radius:var(--r-xl);font-weight:600;transition:transform .3s,background .3s}
+    .btn-terra:hover{transform:translateY(-2px);background:var(--terra-dark)}
+    .btn-outline{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;border:2px solid rgba(255,255,255,.25);color:var(--white);text-decoration:none;border-radius:var(--r-xl);font-weight:600;transition:.3s}
+    .btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+    .hero-pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:8px 18px;border-radius:var(--r-xl);color:rgba(255,255,255,.85);font-size:.85rem;font-weight:500;backdrop-filter:blur(8px)}
+
+    /* ===== PROCESS OVERVIEW ===== */
+    .overview{background:var(--cream)}
+    .overview .section-head{text-align:center;max-width:650px;margin:0 auto 64px}
+    .overview .section-head h2{font-size:clamp(2rem,3.5vw,2.8rem);color:var(--desert);margin-bottom:16px}
+    .overview .section-head p{color:var(--text2);font-size:1.05rem}
+    .overview .tag{background:var(--terra-pale);color:var(--terracotta);margin-bottom:16px}
+
+    .timeline{position:relative;max-width:800px;margin:0 auto}
+    .timeline::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--terracotta),var(--copper),var(--sage));border-radius:4px}
+    .t-item{display:flex;gap:24px;margin-bottom:32px;position:relative;align-items:flex-start}
+    .t-dot{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;position:relative;z-index:2;border:3px solid var(--cream);font-weight:700;color:var(--white)}
+    .t-dot.water{background:var(--terracotta)}
+    .t-dot.filter{background:var(--desert-mid)}
+    .t-dot.solar{background:var(--copper)}
+    .t-dot.done{background:var(--sage)}
+    .t-card{background:var(--white);border-radius:var(--r-lg);padding:24px 28px;flex:1;box-shadow:0 4px 20px rgba(45,36,24,.05);border:1px solid rgba(45,36,24,.06);transition:transform .3s}
+    .t-card:hover{transform:translateX(6px)}
+    .t-card h4{font-size:1.1rem;margin-bottom:6px;color:var(--text)}
+    .t-card p{font-size:.9rem;color:var(--text2);line-height:1.7}
+    .t-card .t-tag{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:var(--r-xl);margin-bottom:8px}
+    .t-tag.phase1{background:var(--sand);color:var(--desert-mid)}
+    .t-tag.phase2{background:rgba(184,115,51,.12);color:var(--copper)}
+    .t-tag.result{background:var(--sage-light);color:var(--sage-dark)}
+
+    /* ===== SERPENT ===== */
+    .serpent{background:var(--desert);color:var(--white);position:relative;overflow:hidden}
+    .serpent::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(184,115,51,.15),transparent);pointer-events:none}
+    .serpent .container{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1}
+    .serpent-text .tag{background:rgba(184,115,51,.2);color:var(--copper-light);margin-bottom:16px}
+    .serpent-text h2{font-size:clamp(2rem,3.5vw,2.8rem);margin-bottom:20px}
+    .serpent-text p{color:rgba(255,255,255,.7);font-size:1.05rem;line-height:1.8;margin-bottom:16px}
+    .why-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:28px}
+    .why-list li{display:flex;align-items:flex-start;gap:14px;font-size:.95rem;color:rgba(255,255,255,.85)}
+    .why-list li .w-icon{width:40px;height:40px;border-radius:var(--r);background:rgba(184,115,51,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+    .why-list li strong{display:block;color:var(--white)}
+    .why-list li span{font-size:.85rem;color:rgba(255,255,255,.6)}
+
+    /* Serpent visual */
+    .serpent-vis{display:flex;justify-content:center;align-items:center}
+    .coil-box{width:300px;height:360px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;position:relative}
+    .coil-box::before{content:'SOLAR HEAT';position:absolute;top:12px;left:50%;transform:translateX(-50%);font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+    .coil-ring{width:160px;height:160px;border-radius:50%;position:relative;margin-bottom:24px}
+    .coil-ring .ring{position:absolute;border-radius:50%;border:2px solid var(--copper);opacity:.6}
+    .ring-1{inset:0;animation:pulseSlow 3s ease-in-out infinite}
+    .ring-2{inset:15px;animation:pulseSlow 3s ease-in-out infinite .5s}
+    .ring-3{inset:30px;animation:pulseSlow 3s ease-in-out infinite 1s}
+    .ring-4{inset:45px;animation:pulseSlow 3s ease-in-out infinite 1.5s}
+    .coil-center{position:absolute;inset:55px;border-radius:50%;background:rgba(184,115,51,.15);display:flex;align-items:center;justify-content:center;font-size:2rem}
+    @keyframes pulseSlow{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.8;transform:scale(1.05)}}
+    .coil-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+    .c-stat{text-align:center;padding:14px;background:rgba(255,255,255,.04);border-radius:var(--r);border:1px solid rgba(255,255,255,.08)}
+    .c-stat strong{display:block;font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--copper-light)}
+    .c-stat span{font-size:.7rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px}
+
+    /* ===== MATERIALS ===== */
+    .materials{background:var(--white)}
+    .materials .section-head{text-align:center;max-width:650px;margin:0 auto 64px}
+    .materials .section-head h2{font-size:clamp(2rem,3.5vw,2.8rem);color:var(--desert);margin-bottom:16px}
+    .materials .section-head p{color:var(--text2);font-size:1.05rem}
+    .materials .tag{background:var(--sage-light);color:var(--sage-dark);margin-bottom:16px}
+    .mat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .mat-card{padding:32px 24px;border-radius:var(--r-lg);text-align:center;transition:transform .3s,box-shadow .3s;border:1px solid rgba(45,36,24,.06)}
+    .mat-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(45,36,24,.08)}
+    .mat-card .m-icon{width:56px;height:56px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+    .mat-card h4{font-size:1rem;margin-bottom:8px}
+    .mat-card p{font-size:.88rem;color:var(--text2);line-height:1.6}
+    .mc-stones .m-icon{background:rgba(120,110,100,.1);color:var(--desert-mid)}
+    .mc-gravel .m-icon{background:rgba(138,138,122,.1);color:#7a7a6a}
+    .mc-coal .m-icon{background:rgba(44,44,44,.1);color:#3a3a3a}
+    .mc-sand .m-icon{background:rgba(210,190,140,.15);color:#b09050}
+    .mc-cotton .m-icon{background:rgba(230,230,230,.5);color:#999}
+    .mc-copper .m-icon{background:rgba(184,115,51,.1);color:var(--copper)}
+
+    /* ===== WHY SECTION ===== */
+    .why-section{background:var(--terra-pale)}
+    .why-section .container{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+    .why-content .tag{background:rgba(199,91,57,.15);color:var(--terracotta);margin-bottom:16px}
+    .why-content h2{font-size:clamp(2rem,3.5vw,2.6rem);color:var(--desert);margin-bottom:20px}
+    .why-content p{color:var(--text2);font-size:1.05rem;line-height:1.8;margin-bottom:16px}
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+    .why-card{background:var(--white);border-radius:var(--r-lg);padding:24px;text-align:center;box-shadow:0 4px 16px rgba(45,36,24,.04)}
+    .why-card .w-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--terracotta)}
+    .why-card .w-label{font-size:.82rem;color:var(--text2);margin-top:4px;font-weight:500}
+
+    /* ===== CTA ===== */
+    .cta{background:var(--cream);text-align:center}
+    .cta-box{background:var(--desert);border-radius:var(--r-lg);padding:80px 60px;max-width:800px;margin:0 auto;color:var(--white);position:relative;overflow:hidden}
+    .cta-box::before{content:'';position:absolute;bottom:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(199,91,57,.2),transparent);pointer-events:none}
+    .cta-box h2{font-size:clamp(1.8rem,3vw,2.4rem);margin-bottom:16px}
+    .cta-box p{color:rgba(255,255,255,.7);font-size:1.05rem;max-width:500px;margin:0 auto 32px}
+    .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn-white{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:var(--white);color:var(--desert);text-decoration:none;border-radius:var(--r-xl);font-weight:600;transition:transform .3s}
+    .btn-white:hover{transform:translateY(-2px)}
+    .btn-outline-w{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;border:2px solid rgba(255,255,255,.25);color:var(--white);text-decoration:none;border-radius:var(--r-xl);font-weight:600;transition:.3s}
+    .btn-outline-w:hover{border-color:var(--white);background:rgba(255,255,255,.08)}
+
+    /* ===== FOOTER ===== */
+    footer{background:var(--desert);color:rgba(255,255,255,.6);padding:60px 0 28px}
+    .f-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;margin-bottom:48px}
+    .f-brand .logo{color:var(--white);margin-bottom:14px}
+    .f-brand p{font-size:.9rem;line-height:1.7;max-width:340px}
+    .f-col h5{color:var(--white);font-size:.85rem;font-weight:600;margin-bottom:18px;letter-spacing:1px;text-transform:uppercase}
+    .f-col a{display:block;color:rgba(255,255,255,.5);text-decoration:none;font-size:.88rem;padding:5px 0;transition:color .3s}
+    .f-col a:hover{color:var(--terra-light)}
+    .f-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;justify-content:space-between;font-size:.82rem}
+    .f-bottom a{color:var(--terra-light);text-decoration:none}
+
+    /* ===== SCROLL ANIM ===== */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+    .reveal.show{opacity:1;transform:translateY(0)}
+    .reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .7s,transform .7s}
+    .reveal-left.show{opacity:1;transform:translateX(0)}
+    .reveal-right{opacity:0;transform:translateX(30px);transition:opacity .7s,transform .7s}
+    .reveal-right.show{opacity:1;transform:translateX(0)}
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:1024px){
+      .serpent .container,.why-section .container{grid-template-columns:1fr;text-align:center}
+      .serpent-vis{margin-top:40px}
+      .why-list li{text-align:left}
+      .mat-grid{grid-template-columns:repeat(2,1fr)}
+      .f-grid{grid-template-columns:1fr;gap:32px}
+    }
+    @media(max-width:768px){
+      section{padding:80px 0}
+      nav a:not(.nav-btn){display:none}
+      .hero{min-height:auto;padding:130px 0 90px}
+      .mat-grid{grid-template-columns:1fr 1fr}
+      .timeline::before{left:26px}
+      .t-dot{width:52px;height:52px}
+      .why-grid{grid-template-columns:1fr 1fr}
+      .cta-box{padding:48px 24px}
+      .f-bottom{flex-direction:column;gap:10px;text-align:center}
+      .coil-box{width:260px;height:320px}
+    }
+    @media(max-width:480px){
+      .mat-grid{grid-template-columns:1fr}
+      .why-grid{grid-template-columns:1fr}
+      .hero-cta{flex-direction:column;align-items:center}
+      .hero-pills{flex-direction:column;align-items:center}
+      .coil-stats{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<header id="header">
+  <div class="container">
+    <a href="#" class="logo"><div class="logo-mark">S</div><span class="logo-name">Sonliquid</span></a>
+    <nav>
+      <a href="#process">Process</a>
+      <a href="#serpent">Copper Serpent</a>
+      <a href="#materials">Materials</a>
+      <a href="#why">Why Us</a>
+      <a href="#contact" class="nav-btn">Get Involved</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <!-- JS-generated sand particles -->
+  <div class="container">
+    <div class="tag hero-tag">Student Initiative • Sonora, Mexico</div>
+    <h1>Turning Desert Sun Into <em>Clean Water</em></h1>
+    <p>Sonliquid is a student team building zero-electricity, plastic-free water purification systems for Sonora's drought-stricken communities. Natural filtration meets solar copper pasteurization.</p>
+    <div class="hero-cta">
+      <a href="#process" class="btn-terra">See How It Works ↓</a>
+      <a href="#contact" class="btn-outline">Join Our Mission</a>
+    </div>
+    <div class="hero-pills">
+      <div class="pill">🌵 Zero Electricity</div>
+      <div class="pill">🚫 No Plastic</div>
+      <div class="pill">🐍 Copper Serpent Tech</div>
+      <div class="pill">🎓 Student-Built</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS TIMELINE -->
+<section class="overview" id="process">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="tag">How It Works</div>
+      <h2>From Dirty Water to Safe Drinking Water</h2>
+      <p>Our two-phase system first filters physical impurities, then uses solar-heated copper to kill remaining pathogens. Every step relies on gravity, nature, and Sonora's sun.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="t-item reveal">
+        <div class="t-dot water">💧</div>
+        <div class="t-card"><div class="t-tag phase1">Phase 1 — Input</div><h4>Dirty Water Enters</h4><p>Water from any local source — a well, river, or rainwater — is poured into the top of the filter unit.</p></div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot filter">1</div>
+        <div class="t-card"><div class="t-tag phase1">Phase 1 — Layer 1</div><h4>Small Stones</h4><p>The first barrier catches large debris like leaves and dirt clumps, and distributes the water evenly across the filter.</p></div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot filter">2</div>
+        <div class="t-card"><div class="t-tag phase1">Phase 1 — Layer 2</div><h4>Gravel</h4><p>Medium-sized particles and sediment get trapped here. The gravel also prevents finer layers below from clogging.</p></div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot filter">3</div>
+        <div class="t-card"><div class="t-tag phase1">Phase 1 — Layer 3</div><h4>Charcoal (Coal)</h4><p>Activated charcoal adsorbs dissolved chemicals, pesticides, and organic compounds. It also eliminates bad taste and odor.</p></div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot filter">4</div>
+        <div class="t-card"><div class="t-tag phase1">Phase 1 — Layer 4</div><h4>Sand</h4><p>Fine sand traps tiny suspended particles and some microorganisms. A biological layer (biofilm) develops naturally over time.</p></div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot filter">5</div>
+        <div class="t-card"><div class="t-tag phase1">Phase 1 — Layer 5</div><h4>Cotton</h4><p>The final physical filter — cotton catches any remaining ultra-fine particles, producing clear water.</p></div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot solar">🐍</div>
+        <div class="t-card"><div class="t-tag phase2">Phase 2 — Solar Pasteurization</div><h4>The Copper Serpent</h4><p>Clear water flows through a coiled copper tube inside a glass-covered solar box. The sun heats it past 65°C and the copper kills bacteria on contact. Double protection, zero plastic.</p></div>
+      </div>
+      <div class="t-item reveal">
+        <div class="t-dot done">✓</div>
+        <div class="t-card"><div class="t-tag result">Result</div><h4>Safe Drinking Water</h4><p>Water exits clean, pathogen-free, and safe to drink. No electricity, no chemicals, no plastic — just nature and science working together.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COPPER SERPENT -->
+<section class="serpent" id="serpent">
+  <div class="container">
+    <div class="serpent-text reveal-left">
+      <div class="tag">Our Innovation</div>
+      <h2>The Copper Serpent</h2>
+      <p>After filtering, water is clear but may still carry invisible bacteria and viruses. The Copper Serpent solves this with a simple concept: a coiled copper tube under glass, heated by the desert sun.</p>
+      <p>As water spirals through, two things happen simultaneously — heat pasteurizes it and copper's natural antimicrobial properties kill pathogens on contact.</p>
+      <ul class="why-list">
+        <li>
+          <div class="w-icon">☀️</div>
+          <div><strong>Solar-Powered</strong><span>Uses Sonora's intense sunlight — nothing else</span></div>
+        </li>
+        <li>
+          <div class="w-icon">🐍</div>
+          <div><strong>Dual-Action Copper</strong><span>Heats AND disinfects in the same tube</span></div>
+        </li>
+        <li>
+          <div class="w-icon">🚫</div>
+          <div><strong>100% Plastic-Free</strong><span>Glass, copper, metal, wood — no microplastics</span></div>
+        </li>
+        <li>
+          <div class="w-icon">⬇️</div>
+          <div><strong>Continuous Flow</strong><span>Gravity-fed — no batch filling needed</span></div>
+        </li>
+      </ul>
+    </div>
+    <div class="serpent-vis reveal-right">
+      <div class="coil-box">
+        <div class="coil-ring">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+          <div class="ring ring-4"></div>
+          <div class="coil-center">🐍</div>
+        </div>
+        <div class="coil-stats">
+          <div class="c-stat"><strong>65°C+</strong><span>Pasteurization</span></div>
+          <div class="c-stat"><strong>0 W</strong><span>Energy Used</span></div>
+          <div class="c-stat"><strong>15m</strong><span>Copper Coil</span></div>
+          <div class="c-stat"><strong>0%</strong><span>Plastic</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section class="materials" id="materials">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="tag">Filter Materials</div>
+      <h2>Simple, Natural, Effective</h2>
+      <p>Every material in our system is affordable, locally available in Sonora, and serves a specific scientific purpose.</p>
+    </div>
+    <div class="mat-grid">
+      <div class="mat-card mc-stones reveal"><div class="m-icon">⬤</div><h4>Small Stones</h4><p>Block large debris and distribute water evenly across the filter surface.</p></div>
+      <div class="mat-card mc-gravel reveal"><div class="m-icon">⬤</div><h4>Gravel</h4><p>Traps medium particles and prevents finer layers from clogging.</p></div>
+      <div class="mat-card mc-coal reveal"><div class="m-icon">⬤</div><h4>Charcoal</h4><p>Adsorbs chemicals, pesticides, and odors. One gram has 3,000+ m² of surface area.</p></div>
+      <div class="mat-card mc-sand reveal"><div class="m-icon">⬤</div><h4>Sand</h4><p>Catches fine sediment and builds a natural biofilm that breaks down organic matter.</p></div>
+      <div class="mat-card mc-cotton reveal"><div class="m-icon">○</div><h4>Cotton</h4><p>Final polish layer that captures ultra-fine particles for crystal-clear water.</p></div>
+      <div class="mat-card mc-copper reveal"><div class="m-icon">🐍</div><h4>Copper Tubing</h4><p>Solar heat collector and antimicrobial agent — kills bacteria and pasteurizes water.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section" id="why">
+  <div class="container">
+    <div class="why-content reveal-left">
+      <div class="tag">Why Sonliquid</div>
+      <h2>Designed by Students, Built for the Desert</h2>
+      <p>We're a team of students from Sonora who believe that access to clean water shouldn't depend on money, electricity, or imported technology. Our system uses what the desert gives us — sun, stone, sand, and ingenuity.</p>
+      <p>The Sonliquid system is designed to be built by anyone, with locally available materials, at minimal cost. We're not just building filters — we're building a model that any community can replicate.</p>
+      <div class="why-grid">
+        <div class="why-card"><div class="w-num">$0</div><div class="w-label">Electricity Cost</div></div>
+        <div class="why-card"><div class="w-num">0</div><div class="w-label">Plastic Parts</div></div>
+        <div class="why-card"><div class="w-num">100%</div><div class="w-label">Local Materials</div></div>
+        <div class="why-card"><div class="w-num">2</div><div class="w-label">Phase System</div></div>
+      </div>
+    </div>
+    <div class="reveal-right" style="display:flex;justify-content:center">
+      <div style="background:var(--white);border-radius:var(--r-lg);padding:40px;max-width:380px;box-shadow:0 8px 32px rgba(45,36,24,.06)">
+        <div style="font-size:4rem;text-align:center;margin-bottom:16px">🌵💧</div>
+        <blockquote style="font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;text-align:center;color:var(--text);line-height:1.6;margin-bottom:16px">"The desert taught us that scarcity breeds creativity. Sonora's sun is both our biggest problem and our greatest solution."</blockquote>
+        <cite style="display:block;text-align:center;font-size:.85rem;color:var(--text2);font-style:normal">— The Sonliquid Team</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2>Help Us Bring Clean Water to More Communities</h2>
+      <p>Donate materials, share our story, or help us build filters. Every contribution makes a real difference.</p>
+      <div class="cta-btns">
+        <a href="mailto:contact@sonliquid.com" class="btn-white">Contact Us →</a>
+        <a href="#process" class="btn-outline-w">See the Process</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a href="#" class="logo"><div class="logo-mark">S</div><span class="logo-name">Sonliquid</span></a>
+        <p>A student initiative building natural water filters and solar copper pasteurizers for Sonora's drought-affected communities.</p>
+      </div>
+      <div class="f-col">
+        <h5>Explore</h5>
+        <a href="#process">Process</a><a href="#serpent">Copper Serpent</a><a href="#materials">Materials</a><a href="#why">Why Us</a>
+      </div>
+      <div class="f-col">
+        <h5>Connect</h5>
+        <a href="mailto:coloreseduardo318gmail.com">Email Us</a><a href="#+52 662 329 9773
+        !-- ">Get Involved</a><a href="https://www.instagram.com/eduardocoloresm/">Instagram</a><a href="https://www.bing.com/maps/search?mepi=0%7E%7EEmbedded%7EAddress_Link&ty=18&v=2&sV=1&FORM=MPSRPL&style=3d&q=HighPoint+International+School%E2%80%A6&ss=id.ypid%3A9001x2631460325315054477&cp=29.088507%7E-111.002853&eh=158.1&lvl=21&dir=178.39&pi=68.74"</a>
+      </div>> Adress</a>
+    </div>
+    <div class="f-bottom">
+      <span>© 2025 Sonliquid. All rights reserved.</span>
+      <span>Built with 🌵 in Sonora, Mexico</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Header scroll
+const h=document.getElementById('header');
+window.addEventListener('scroll',()=>h.classList.toggle('scrolled',window.scrollY>50));
+
+// Scroll reveals
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>obs.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}})});
+
+// Generate floating sand particles
+const hero=document.querySelector('.hero');
+for(let i=0;i<20;i++){
+  const p=document.createElement('div');
+  p.className='sand-particle';
+  p.style.left=Math.random()*100+'%';
+  p.style.top=(40+Math.random()*60)+'%';
+  p.style.animationDuration=(6+Math.random()*8)+'s';
+  p.style.animationDelay=Math.random()*8+'s';
+  p.style.width=p.style.height=(2+Math.random()*4)+'px';
+  hero.appendChild(p);
+}
+</script>
+</body>
+</html>
